@@ -21,7 +21,11 @@ variable "gcp_zone" {
   default     = "asia-south1-b"
 }
 
-variable "jenkins_subnet_prefix" {
+variable "subnet_cidr_public" {
+  description = "The address prefix to use for the subnet."
+  default     = "10.0.0.0/24"
+}
+variable "subnet_cidr_private" {
   description = "The address prefix to use for the subnet."
   default     = "10.0.1.0/24"
 }
