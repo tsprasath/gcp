@@ -1,36 +1,42 @@
 # create the Private VPC
-resource "google_compute_network" "vpc_private" {
-  name                    = "${var.prefix}-private-vpc"
+resource "google_compute_network" "env_vpc" {
+  name                    = "${var.prefix}-${var.env}-private-vpc"
   auto_create_subnetworks = "false"
   routing_mode            = "GLOBAL"
 }
 
 resource "google_compute_subnetwork" "private-subnet_1" {
-  name          = "${var.prefix}-private-subnet"
+  name          = "${var.prefix}--${var.env}-private-subnet"
   region        = var.gcp_region
-  network       = google_compute_network.vpc_private.self_link
+  network       = google_compute_network.env_vpc.self_link
   ip_cidr_range = var.subnet_cidr_private
 }
 
 # create the Public VPC
-resource "google_compute_network" "vpc_public" {
-  name                    = "public-vpc"
+resource "google_compute_network" "admin_vpc" {
+  name                    = "${var.prefix}-${var.env}-public-vpc"
   auto_create_subnetworks = "false"
   routing_mode            = "GLOBAL"
 }
 
 resource "google_compute_subnetwork" "public-subnet_1" {
-  name          = "public-subnet-1"
+  name          = "${var.prefix}-${var.env}-public-subnet-1"
   ip_cidr_range = var.subnet_cidr_public
-  network       = google_compute_network.vpc_public.name
+  network       = google_compute_network.admin_vpc.name
   region        = var.gcp_region
 }
 
+resource "google_compute_subnetwork" "private-subnet_2" {
+  name          = "${var.prefix}-${var.env}-private-subnet-1"
+  region        = var.gcp_region
+  network       = google_compute_network.admin_vpc.self_link
+  ip_cidr_range = var.subnet_cidr_private_2
+}
 
 # # cloud Router
 # resource "google_compute_router" "router" {
 #   name    = "${var.prefix}-jenkins"
-#   network = google_compute_network.vpc_private_sunbird.self_link
+#   network = google_compute_network.env_vpc_sunbird.self_link
 #   bgp {
 #     asn               = 64514
 #     advertise_mode    = "CUSTOM"

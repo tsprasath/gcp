@@ -1,6 +1,6 @@
 # Create Bastion in public VPC
 resource "google_compute_instance" "bastion" {
-  name         = "${var.prefix}-bastion"
+  name         = "${var.prefix}-${var.env}-bastion"
   zone         = var.gcp_zone
   machine_type = var.machine_type
   tags         = ["allow-ssh"]
@@ -12,7 +12,7 @@ resource "google_compute_instance" "bastion" {
   }
 
   network_interface {
-    network    = google_compute_network.vpc_public.name
+    network    = google_compute_network.admin_vpc.name
     subnetwork = google_compute_subnetwork.public-subnet_1.self_link
   }
 }

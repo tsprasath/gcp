@@ -1,11 +1,11 @@
 resource "google_compute_network_peering" "public-private" {
   name         = "peering1"
-  network      = google_compute_network.vpc_public.self_link
-  peer_network = google_compute_network.vpc_private.self_link
+  network      = google_compute_network.admin_vpc.self_link
+  peer_network = google_compute_network.env_vpc.self_link
 }
 
 resource "google_compute_network_peering" "private-public" {
   name         = "peering2"
-  network      = google_compute_network.vpc_private.self_link
-  peer_network = google_compute_network.vpc_public.self_link
+  network      = google_compute_network.env_vpc.self_link
+  peer_network = google_compute_network.admin_vpc.self_link
 }

@@ -1,9 +1,9 @@
 
 
-# Create Jenkins  Server in Private VPC
+# Create Jenkins  Server in private AdminVPC
 
 resource "google_compute_instance" "sunbird_jenkins_vm" {
-  name         = "${var.prefix}-jenkins"
+  name         = "${var.prefix}-${var.env}-jenkins"
   zone         = var.gcp_zone
   machine_type = var.machine_type
   tags         = ["allow-ssh"]
@@ -17,14 +17,15 @@ resource "google_compute_instance" "sunbird_jenkins_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.vpc_private.name
-    subnetwork = google_compute_subnetwork.private-subnet_1.self_link
+    network    = google_compute_network.admin_vpc.name
+    subnetwork = google_compute_subnetwork.private-subnet_2.self_link
   }
 
 }
 
+# Creating other  Server in private  EnvVPC
 resource "google_compute_instance" "sunbird_db_vm" {
-  name         = "${var.prefix}-db"
+  name         = "${var.prefix}-${var.env}-db"
   zone         = var.gcp_zone
   machine_type = var.machine_type
   tags         = ["allow-ssh"]
@@ -38,14 +39,14 @@ resource "google_compute_instance" "sunbird_db_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.vpc_private.name
+    network    = google_compute_network.env_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
 }
 
 resource "google_compute_instance" "sunbird_kb_vm" {
-  name         = "${var.prefix}-kb"
+  name         = "${var.prefix}-${var.env}-kb"
   zone         = var.gcp_zone
   machine_type = var.machine_type
   tags         = ["allow-ssh"]
@@ -59,14 +60,14 @@ resource "google_compute_instance" "sunbird_kb_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.vpc_private.name
+    network    = google_compute_network.env_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
 }
 
 resource "google_compute_instance" "sunbird_dp_vm" {
-  name         = "${var.prefix}-dp"
+  name         = "${var.prefix}-${var.env}-dp"
   zone         = var.gcp_zone
   machine_type = var.machine_type
   tags         = ["allow-ssh"]
@@ -80,7 +81,7 @@ resource "google_compute_instance" "sunbird_dp_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.vpc_private.name
+    network    = google_compute_network.env_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
@@ -88,7 +89,7 @@ resource "google_compute_instance" "sunbird_dp_vm" {
 
 
 resource "google_compute_instance" "sunbird_yarn_vm" {
-  name         = "${var.prefix}-yarn"
+  name         = "${var.prefix}-${var.env}-yarn"
   zone         = var.gcp_zone
   machine_type = var.machine_type
   tags         = ["allow-ssh"]
@@ -102,7 +103,7 @@ resource "google_compute_instance" "sunbird_yarn_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.vpc_private.name
+    network    = google_compute_network.env_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
