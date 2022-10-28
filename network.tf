@@ -6,7 +6,7 @@ resource "google_compute_network" "env_vpc" {
 }
 
 resource "google_compute_subnetwork" "private-subnet_1" {
-  name          = "${var.prefix}--${var.env}-private-subnet"
+  name          = "${var.prefix}-${var.env}-private-subnet"
   region        = var.gcp_region
   network       = google_compute_network.env_vpc.self_link
   ip_cidr_range = var.subnet_cidr_private
@@ -35,7 +35,7 @@ resource "google_compute_subnetwork" "private-subnet_2" {
 
 # # cloud Router
 # resource "google_compute_router" "router" {
-#   name    = "${var.prefix}-jenkins"
+#   name    = "${var.prefix}-${var.env}-jenkins"
 #   network = google_compute_network.env_vpc_sunbird.self_link
 #   bgp {
 #     asn               = 64514
@@ -47,7 +47,7 @@ resource "google_compute_subnetwork" "private-subnet_2" {
 # # NAT Gateway
 
 # resource "google_compute_router_nat" "nat" {
-#   name                               = "${var.prefix}-router-nat"
+#   name                               = "${var.prefix}-${var.env}--router-nat"
 #   router                             = google_compute_router.router.name
 #   region                             = google_compute_router.router.region
 #   nat_ip_allocate_option             = "AUTO_ONLY"
