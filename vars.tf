@@ -45,3 +45,5 @@ variable "machine_type" {
 }
 
 variable "credentials_file" {}
+
+variable "cluster_name" {}
