@@ -43,3 +43,5 @@ variable "machine_type" {
   description = "Specifies the GCP instance type."
   default     = "f1-micro"
 }
+
+variable "credentials_file" {}

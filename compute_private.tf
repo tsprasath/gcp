@@ -39,7 +39,7 @@ resource "google_compute_instance" "sunbird_db_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.env_vpc.name
+    network    = google_compute_network.demo_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
@@ -60,7 +60,7 @@ resource "google_compute_instance" "sunbird_kb_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.env_vpc.name
+    network    = google_compute_network.demo_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
@@ -81,7 +81,7 @@ resource "google_compute_instance" "sunbird_dp_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.env_vpc.name
+    network    = google_compute_network.demo_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
@@ -103,7 +103,7 @@ resource "google_compute_instance" "sunbird_yarn_vm" {
   metadata_startup_script = "sudo apt-get update;"
 
   network_interface {
-    network    = google_compute_network.env_vpc.name
+    network    = google_compute_network.demo_vpc.name
     subnetwork = google_compute_subnetwork.private-subnet_1.self_link
   }
 
